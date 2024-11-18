@@ -18,11 +18,11 @@ export default tseslint.config({
   languageOptions: {
     // other options...
     parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      project: ["./tsconfig.node.json", "./tsconfig.app.json"],
       tsconfigRootDir: import.meta.dirname,
     },
   },
-})
+});
 ```
 
 - Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
@@ -31,11 +31,11 @@ export default tseslint.config({
 
 ```js
 // eslint.config.js
-import react from 'eslint-plugin-react'
+import react from "eslint-plugin-react";
 
 export default tseslint.config({
   // Set the react version
-  settings: { react: { version: '18.3' } },
+  settings: { react: { version: "18.3" } },
   plugins: {
     // Add the react plugin
     react,
@@ -44,7 +44,32 @@ export default tseslint.config({
     // other rules...
     // Enable its recommended rules
     ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
+    ...react.configs["jsx-runtime"].rules,
   },
-})
+});
 ```
+
+design pattern: \*\*\*\*
+Trong project này tôi muốn sử dụng stateless component và sử dụng tính chất hoisting để đảm bảo dữ liệu chỉ nằm ở 1 đầu
+hoặc có thể sử dụng trong các style code
+exampl code stateless component ( hoisting state )
+<!-- useEffect(() => {
+  const cars = getData(); //this fuctional function calls an API
+  setCars(cars);
+}, []);
+
+return (
+  <div>
+    <CarHeader cars />
+    <CarList cars />
+  </div>
+); -->
+
+  + Sử dụng proxy component để đảm bảo các component được tạo từ đầu ( cha ) có thể tái sử dụng.
+  + Sủ dụng hooks để tách các logic sử lý nghiệp vụ ra khỏi UI
+  + Và viết các Higher-Order Function/Component để tái sử dụng các function hooks hoặc function utils
+  + Có thể bắt đầu với các thư mục shared - chứa tất cả các thành phần sử dụng chung cho project ( component/ assets/ constants/ utils/ ...)
+  + Sử dụng APi nên có 1 thư mục core hoặc api, service , ... trong này có thể tách ra theo graphql hoặc resfull
+  + Vì muốn tách UI riêng nên có 1 thư mục chưa UI - trong này sẽ có các page ( html, css) / sections / layouts/....
+  + Với project sử dụng đã ngôn ngữ sẽ có thêm 1 thư mục lang ( optional )
+  + single page application không thể thiếu thư mục router
