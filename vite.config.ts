@@ -10,7 +10,7 @@ export default defineConfig(({ mode }) => {
     plugins: [react()],
     resolve: {
       alias: {
-        "@": path.resolve(__dirname, "./src"), // Shortcut for src directory/ dynamic import
+        "@": path.resolve(__dirname, "./src"),
       },
     },
     server: {

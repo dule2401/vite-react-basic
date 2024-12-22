@@ -8,9 +8,8 @@ export const Router = () => {
       element: <Home />,
       children: [],
     },
-    // { path: "team", element: <AboutPage /> },
   ]);
   return router;
 };
 
-const Home = React.lazy(() => import("../ui/page/Home"));
+const Home = React.lazy(() => import("@/ui/page/Home"));
